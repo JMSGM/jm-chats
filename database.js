@@ -15,20 +15,19 @@ const [rows] = await pool.query('SELECT * FROM users');
 return rows;
 }
 
-export async function createUser(name, password) {
+export async function createUser(username, password) {
     const [result] = await pool.query(
-        `INSERT INTO users (username, user_password) VALUES (?, ?)`, [name, password]);
+        `INSERT INTO users (username, user_password) VALUES (?, ?)`, [username, password]);
         return result.insertId;
 }
-export async function getUser(user_id){
+export async function getUserID(user_id){
     const [result] = await pool.query(
         `SELECT * FROM  users WHERE user_id = ?`, [user_id]);
         return result[0];
 }
+export async function getAccount(username){
+    const [result] = await pool.query(
+        `SELECT username, user_password FROM users WHERE username = ?`, [username]);
+        return result[0];
+}
 
-// const newUser = await createUser('JM', 'pogiakohaha');
-
-// const user = await getUser(2);
-
-// console.log(newUser);
-// console.log(user);
