@@ -14,5 +14,17 @@
         <a href="users/loginAccount">
         <button>Login Account</button>
     </a>
+
+    <!--chat feature when session is logged in -->
+    <% if(user){ %>
+        <p>Welcome to the chat <% user.username%>!</p>
+        
+        <a href="users/logout">
+            <button>logout</button>
+        </a>
+        
+        <%} else {%> 
+            <p>Please login in to access chat</p>
+            <% } %>
 </body>
 </html>

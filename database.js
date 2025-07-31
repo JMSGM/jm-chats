@@ -27,7 +27,7 @@ export async function getUserID(user_id){
 }
 export async function getAccount(username){
     const [result] = await pool.query(
-        `SELECT username, user_password FROM users WHERE username = ?`, [username]);
+        `SELECT * FROM users WHERE username = ?`, [username]);
         return result[0];
 }
 

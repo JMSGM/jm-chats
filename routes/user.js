@@ -1,6 +1,6 @@
 import express from 'express';  //import express
 import bcrypt from 'bcrypt';
-import { createUser, getUserID, getUsersList, getAccount} from '../database.js';
+import { createUser, getUsersList, getAccount} from '../database.js';
 
 const router = express.Router();
 
@@ -17,6 +17,15 @@ router.get('/createAccount', (req, res) => {
 });
 router.get('/loginAccount', (req, res) => {
     res.render("users/loginAccount");
+});
+router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if(err){
+            return res.status(500).send("error logging out")
+        } 
+        res.redirect('/')
+        console.log("successfully logged out")
+    });
 });
 
 //route to create new user form
@@ -67,9 +76,15 @@ router.post('/loginAccount', async(req, res) => {
         return res.render('users/loginAccount',
              {error: 'Invalid username or password', name: username });
     }
-    res.status(201).redirect('/'); //succesfull login
-    console.log("user logged in!");
+    
+    
+    req.session.user = {username: account.username, id: account.user_id};
+    console.log("user logged in: ", req.session.user);
+    res.redirect('/'); //succesfull login
 });
+
+
+
 
 //Route to handle dynamic user IDs
 router
