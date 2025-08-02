@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JM-Chat</title>
-    
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/7.css">
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JM-Chat</title>
+
+  <script defer src="/socket.io/socket.io.js"></script>
+  <script defer src="js/script.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/7.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="/images/thunderbird1.ico" />
 </head>
-  <body>
-      <h1>Welcome to JMChats!</h1>
-      <a href="users/createAccount">
-          <button>Create Account</button>
-          <br><br>
-      </a>
-          <a href="users/loginAccount">
-          <button>Login Account</button>
-      </a>
+<body>
+  <h1>Welcome to JMChats!</h1>
 
-      <!--chat feature when session is logged in -->
-      <% if(user){ %>
-          <p>Welcome to the chat <% user.username%>!</p>
-          
-          <a href="users/logout">
-              <button>logout</button>
-          </a>
-          
-          <%} else {%> 
-              <p>Please login in to access chat</p>
-              <% } %>
+  <a href="users/createAccount">
+    <button>Create Account</button>
+  </a>
+  <br /><br />
+  <a href="users/loginAccount">
+    <button>Login Account</button>
+  </a>
 
+  <!-- Chat section (if logged in) -->
+  <% if (user) { %>
+    <p>Welcome to the chat, <%= user.username %>!</p>
+    <a href="users/logout">
+      <button>Logout</button>
+    </a>
+  <% } else { %>
+    <p>Please log in to access chat</p>
+  <% } %>
+
+  <!-- Chat Window -->
   <div class="window glass active">
     <div class="title-bar">
       <div class="title-bar-text">C-LOG</div>
@@ -39,18 +43,25 @@
         <button aria-label="Close"></button>
       </div>
     </div>
-    <!--chat components starts here-->
+
     <div class="window-body has-space">
       <div class="chat-container">
-        <div class="input-container">
-          <textarea class="text-input" placeholder="Type message here..."></textarea>
-          <button>Send</button>
+        <div class="bubble-container">
+          <div id="chat-bubble"></div>
         </div>
-      
+
+        <form id="send-container">
+          <div class="input-container">
+            <textarea
+              class="text-input"
+              id="message-input"
+              placeholder="Type message here..."
+            ></textarea>
+            <button type="submit" id="send-button">Send</button>
+          </div>
+        </form>
       </div>
     </div>
-
   </div>
-
-  </body>
+</body>
 </html>
