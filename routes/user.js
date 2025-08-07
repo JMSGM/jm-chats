@@ -23,7 +23,7 @@ router.get('/logout', (req, res) => {
         if(err){
             return res.status(500).send("error logging out")
         } 
-        res.redirect('/')
+        res.redirect('/');
         console.log("successfully logged out")
     });
 });

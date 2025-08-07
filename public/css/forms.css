@@ -1,0 +1,28 @@
+body{
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-attachment: fixed;
+    overflow-x: hidden;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.window{
+    position: relative;
+    width: 100%;
+    max-width: 20rem;
+    height: 20rem;
+    height: auto;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2) !important;
+    --w7-w-bg: #2f65fa9c;    
+}
+.button{
+    display: block;
+    margin: 0 auto;
+}

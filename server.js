@@ -3,7 +3,8 @@ import userRoutes from './routes/user.js';
 import session from 'express-session';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { Socket } from 'dgram';
+import { createUser, getUsersList, getAccount, storeMessage} from './database.js';
+
 
 const app = express(); 
 const httpServer = createServer(app);
@@ -30,22 +31,37 @@ app.use((req, res, next) => {//user for all template
 //Routes
 app.use('/users', userRoutes); 
 
-app.get('/', (req, res) =>{
+app.get('/', async(req, res) =>{
     res.render('index')
 });
+
+
 
 //Error Handling
 app.use((err, req, res, next) => {
   console.error(err.stack)
   res.status(500).send('Something broke!')
-})
+});
 
+io.on('connection', socket=> {
+  socket.on('new-user', username => {
+    socket.data.username = username;
+    socket.broadcast.emit('user-joined', username);
+  });
+  socket.on('user-message', async(message) => {
+    const username = socket.data.username;
+    if(!username) return;
+    try{
+      await storeMessage(username, message);
+      io.emit('new-message', { username, message });
+    }catch(err){
+      console.error('storing message failed:', err);
+      socket.emit('error saving', 'could not save your message')
+    }
 
-io.on('connection', socket => {
-  socket.on('user-message', message => {
-  socket.broadcast.emit('new-message', message);
   });
 });
+
 //Start server
 httpServer.listen(3000, () => {
   console.log('Server running on port 3000');

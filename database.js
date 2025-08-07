@@ -30,4 +30,13 @@ export async function getAccount(username){
         `SELECT * FROM users WHERE username = ?`, [username]);
         return result[0];
 }
+export async function storeMessage(username, message){
+        const [result] = await pool.query(
+        `INSERT INTO messages (username, message) VALUES (?, ?)`, [username, message]);
+}
+export async function fetchMessage(username, message){
+        const [result] = await pool.query(
+        `SELECT (username, messsage) FROM messages WHERE created >= NOW() - INTERVAL 7 DAY ORDER BY ASC`);
+        return result;
+}
 

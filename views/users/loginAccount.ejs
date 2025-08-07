@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>JM-Chats</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/7.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="icon" href="/images/thunderbird1.ico" />
+
 </head>
-<body>
-    <h1>Login</h1>
-    <form action="/users/loginAccount" method="POST">
-        
-        <label>Enter Name: 
-            <input type="text" name="username" value = "<%= locals.name%>">
-        </label>
+<body style="background-image: url('../images/asadal_stock_16.jpg');">
+  
+    <div class="window glass active">
+    <div class="title-bar">
+      <div class="title-bar-text">Login Account</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space">
+        <form action="/users/loginAccount" method="POST">
+            <label>Enter Name:
+                <input type="text" name="username" value = "<%= locals.name%>">
+            </label>
+            <br>
+            <br>
+            <label>Enter Password:
+                <input type="text" name="password" value = "<%= locals.pass%>">
+            </label>
+            <br>
+            <br>
+            <button type="submit" class="button">Login</button>
+        </form>
+    </div>
+  </div>
 
-        <br>
-        <br>
-
-        <label>Enter Password:
-            <input type="text" name="password" value = "<%= locals.pass%>">
-        </label>
-
-        <br>
-        <br>
-
-        <button type="submit">Login</button>
-    </form>
 </body>
 </html>

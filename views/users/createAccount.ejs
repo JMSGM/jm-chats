@@ -3,24 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styles.css">
+    <title>JM-Chats</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/7.css" />
+    <link rel="stylesheet" href="/css/forms.css" />
+    <link rel="icon" href="/images/thunderbird1.ico" />
+
 </head>
-<body>
-    <h1>Create Account</h1>
-    <form action="/users/createAccount" method="POST">
-        
-        <label>Enter Name: 
-            <input type="text" name="username" value = "<%= locals.name%>">
-        </label>
-        <br>
-        <br>
-        <label>Enter Password:
-            <input type="text" name="password" value = "<%= locals.pass%>">
-        </label>
-        <br>
-        <br>
-        <button type="submit">Create</button>
-    </form>
+<body style="background-image: url('../images/asadal_stock_13.jpg');">
+  
+    <div class="window glass active">
+    <div class="title-bar">
+      <div class="title-bar-text">Create Account</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body has-space">
+        <form action="/users/createAccount" method="POST">
+            <label>Enter Name:
+                <input type="text" name="username" value = "<%= locals.name%>">
+            </label>
+            <br>
+            <br>
+            <label>Enter Password:
+                <input type="text" name="password" value = "<%= locals.pass%>">
+            </label>
+            <br>
+            <br>
+            <button type="submit" class="button">Create</button>
+        </form>
+    </div>
+  </div>
+
 </body>
 </html>
