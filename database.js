@@ -34,9 +34,13 @@ export async function storeMessage(username, message){
         const [result] = await pool.query(
         `INSERT INTO messages (username, message) VALUES (?, ?)`, [username, message]);
 }
-export async function fetchMessage(username, message){
+export async function fetchMessage(){
         const [result] = await pool.query(
-        `SELECT (username, messsage) FROM messages WHERE created >= NOW() - INTERVAL 7 DAY ORDER BY ASC`);
+        `SELECT username, message
+         FROM messages 
+         WHERE created >= NOW() - INTERVAL 7 DAY
+        ORDER BY created ASC`
+        );
         return result;
 }
 

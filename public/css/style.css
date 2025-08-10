@@ -35,6 +35,7 @@ body{
     height: 100%;
     width: 100%;
     background-color: aliceblue;
+    border-radius: 5px;
 }
 .bubble-container{
     flex-grow: 1;
@@ -68,6 +69,7 @@ body{
     padding: 0.5rem;
     background: #ffffff91;
     border-top: 1px solid #ccc;
+    border-radius: 5px;
 }
 .input-container button {
     width: 60px;
@@ -77,4 +79,26 @@ body{
     flex: 1;
     resize: none;
     height: 2.5rem;
+}
+.divider-line{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: red;
+    font-size: 1rem;
+    margin: 1rem 0;
+}
+.divider-line::before,
+.divider-line::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider-line:not(:empty)::before {
+  margin-right: 0.75em;
+}
+
+.divider-line:not(:empty)::after {
+  margin-left: 0.75em;
 }

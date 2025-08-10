@@ -8,13 +8,24 @@ document.addEventListener('DOMContentLoaded', () => {
   const socket = io('http://localhost:3000');
   const username = window.currentUser || 'Anonymous';
 
-  appendMessage("You Joined");
-  
-  socket.emit('new-user', username);
-  
+  socket.emit('load-previous-message');
+  socket.on('fetched-messages', oldMessages => {
+    for(let i = 0; i < oldMessages.length; i++){
+      let username = oldMessages[i].username;
+      let messages = oldMessages[i].message;
+      appendMessage(`${username}: ${messages}`);  
+    }
+    messageDivider();
+    appendMessage("You Joined");
+    socket.emit('new-user', username);
+  });
+
+
+
   socket.on('user-joined', name => {
     appendMessage(`${name} joined the chat`);
   });
+
   socket.on('new-message', data => {
     appendMessage(`${data.username}: ${data.message}`);
   });
@@ -40,5 +51,15 @@ document.addEventListener('DOMContentLoaded', () => {
     chatBubble.appendChild(wrapper);
   }
 
+  function messageDivider(){
+    const divider = document.createElement('div');
+    divider.classList.add('divider-line');
+
+    const newMessagesText = document.createElement('span')
+    newMessagesText.innerText = 'New Message';
+    divider.appendChild(newMessagesText);
+    chatBubble.appendChild(divider);
+
+  }
   
 });

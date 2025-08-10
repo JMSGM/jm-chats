@@ -3,7 +3,7 @@ import userRoutes from './routes/user.js';
 import session from 'express-session';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { createUser, getUsersList, getAccount, storeMessage} from './database.js';
+import { fetchMessage, storeMessage} from './database.js';
 
 
 const app = express(); 
@@ -58,8 +58,12 @@ io.on('connection', socket=> {
       console.error('storing message failed:', err);
       socket.emit('error saving', 'could not save your message')
     }
-
   });
+  socket.on('load-previous-message', async() => {
+      const oldMessage = await fetchMessage();
+      socket.emit('fetched-messages', oldMessage);
+  });
+
 });
 
 //Start server
