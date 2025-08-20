@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     for(let i = 0; i < oldMessages.length; i++){
       let username = oldMessages[i].username;
       let messages = oldMessages[i].message;
-      appendMessage(`${username}: ${messages}`);  
+      //appendMessage(`${username}: ${messages}`);  
+      appendUserMessage(username, messages);
     }
-    messageDivider();
     appendMessage("You Joined");
     socket.emit('new-user', username);
   });
@@ -27,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   socket.on('new-message', data => {
-    appendMessage(`${data.username}: ${data.message}`);
+    //appendMessage(`${data.username}: ${data.message}`);
+    appendUserMessage(data.username, data.message);
   });
 
 
@@ -50,16 +51,47 @@ document.addEventListener('DOMContentLoaded', () => {
     wrapper.appendChild(bubble);
     chatBubble.appendChild(wrapper);
   }
+  
+  function appendUserMessage(name, message){
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('chat-message')
 
-  function messageDivider(){
-    const divider = document.createElement('div');
-    divider.classList.add('divider-line');
+    const bubble = document.createElement('div');
+    bubble.classList.add('chat-bubble');
 
-    const newMessagesText = document.createElement('span')
-    newMessagesText.innerText = 'New Message';
-    divider.appendChild(newMessagesText);
-    chatBubble.appendChild(divider);
+    //name
+    const nameEl = document.createElement('p');
+    nameEl.className = 'msgName';
+    const userNick = document.createElement('span');
+    userNick.className = 'userNick';
+    userNick.textContent = name;
+    nameEl.appendChild(userNick);
+    
+    //message
+    const messageEl = document.createElement('p');
+    messageEl.className = 'msgText';
+    const msgText = document.createElement('span');
+    msgText.className = 'userNick';
+    msgText.textContent = message;
+    messageEl.appendChild(msgText);
+    
+    
+    bubble.append(nameEl, msgText);
+    wrapper.appendChild(bubble);
+    chatBubble.appendChild(wrapper);
+    chatBubble.scrollTop = chatBubble.scrollHeight;
 
   }
+
+  // function messageDivider(){
+  //   const divider = document.createElement('div');
+  //   divider.classList.add('divider-line');
+
+  //   const newMessagesText = document.createElement('span')
+  //   newMessagesText.innerText = 'Previous messages above';
+  //   divider.appendChild(newMessagesText);
+  //   chatBubble.appendChild(divider);
+
+  // }
   
 });

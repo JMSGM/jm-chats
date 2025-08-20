@@ -1,3 +1,4 @@
+/* general */
 html{
   height: 100%;
   background-image: url('../images/asadal_stock_1.jpg');
@@ -29,12 +30,14 @@ body{
     height: 50rem !important;
     background-color: rgba(52, 172, 228, 0.26);
  }
-.chat-container{
+
+/* Chat bubble and chat containers */
+ .chat-container{
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
-    background-color: aliceblue;
+    background-color: rgba(240, 248, 255, 0.137);
     border-radius: 5px;
 }
 .bubble-container{
@@ -45,30 +48,23 @@ body{
     flex-direction: column;
     gap: 15px;
 }
-#chat-bubble{
-    width: 100%;
-    max-width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
+
 .chat-message{
     display: flex;
     justify-content: flex-start;
 }
 .chat-bubble{
-    background-color: #30bdff71;
-    padding: 10px 14px;
+    display: flex;
+    flex-direction: column;
     border-radius: 12px;
-    max-width: 70%;
+    max-width: 95%;
     word-wrap: break-word;
 }
 .input-container{
     display: flex;
     gap: 10px;
     padding: 0.5rem;
-    background: #ffffff91;
-    border-top: 1px solid #ccc;
+    background: #ffffff00;
     border-radius: 5px;
 }
 .input-container button {
@@ -80,6 +76,16 @@ body{
     resize: none;
     height: 2.5rem;
 }
+.msgName .userNick {
+    font-weight: 700;
+    color: black;
+}
+.msgText .msgName{
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* Divider for previous messages */
 .divider-line{
     display: flex;
     align-items: center;
